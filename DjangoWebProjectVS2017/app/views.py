@@ -10,7 +10,7 @@ from django.http.response import HttpResponse, Http404
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Question,Choice,User
 from django.template import loader
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from app.forms import QuestionForm, ChoiceForm,UserForm
 from django.shortcuts import redirect
 import json
@@ -55,6 +55,7 @@ def about(request):
     )
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')
+    category_list = list(Question.objects.values('topic').distinct())
     template = loader.get_template('polls/index.html')
     context = {
                 'title':'Lista de preguntas de la encuesta',

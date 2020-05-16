@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^contact$', app.views.contact, name='contact'),
     url(r'^about', app.views.about, name='about'),
     url(r'^login/$',
-        django.contrib.auth.views.login,
+        django.contrib.auth.views.LoginView.as_view(),
         {
             'template_name': 'app/login.html',
             'authentication_form': app.forms.BootstrapAuthenticationForm,
@@ -33,7 +33,7 @@ urlpatterns = [
         },
         name='login'),
     url(r'^logout$',
-        django.contrib.auth.views.logout,
+        django.contrib.auth.views.LogoutView.as_view(),
         {
             'next_page': '/',
         },
@@ -46,7 +46,7 @@ urlpatterns = [
     url(r'^user/', app.views.user_new, name='user'),
     url(r'^users/', app.views.users_detail, name='users_detail'),
     url(r'^chart/(?P<question_id>\d+)/$', app.views.chart, name='chart'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^polls/add/', app.views.question_new, name='add'),
     url(r'^polls/choice_add/(?P<question_id>\d+)/$', app.views.choice_add, name='choice_add'),
     url(r'^(?P<question_id>\d+)/results/$', app.views.results, name='results'),
