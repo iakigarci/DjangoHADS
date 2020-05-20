@@ -4,13 +4,20 @@
 <h2>{{ title }}.</h2>
 <h3>{{ message }}</h3>
 
-<div>
-    <select name="tema" id="tema">
-        {% for t in tema %}
-        <option value="tema"></option>
+{% if category_list %}
+<form  method="post" class="post-form"> {% csrf_token %}
+    <select class="form-control" name="selectCategory">
+    {%for category in category_list %}
+        <option value="{{category.category}}">{{category.category}}</option>
+    {% endfor %}
     </select>
-
-</div>
+    <br />
+    <input type="submit" value="Filtrar por tema" class="btn btn-default"/>
+</form>
+<br />
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
 
 {% if latest_question_list %}
     <ul>

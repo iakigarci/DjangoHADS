@@ -56,10 +56,10 @@ def about(request):
 def index(request):
     if request.method == "POST":
         form = request.POST
-        latest_question_list = Question.objects.filter(topic=form.get("topicSelect", "")).order_by('-pub_date')
+        latest_question_list = Question.objects.filter(category=form.get("selectCategory", "")).order_by('-pub_date')
     else:
         latest_question_list = Question.objects.order_by('-pub_date')
-    category_list = list(Question.objects.values('topic').distinct())
+    category_list = list(Question.objects.values('category').distinct())
     template = loader.get_template('polls/index.html')
     context = {
                 'title':'Lista de preguntas de la encuesta',
