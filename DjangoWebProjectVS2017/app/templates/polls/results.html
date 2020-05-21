@@ -6,11 +6,30 @@
 
 <h1>{{ question.question_text }}</h1>
 
-<ul>
-{% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
-{% endfor %}
-</ul>
+{% if not request.user.is_authenticated %}   
+    {% if choice.correct %}
+        <h3 style="color: green">¡ Respuesta Correcta !</h3>
+    {% else %}
+        <h3 style="color: red">¡ Respuesta Incorrecta !</h3>
+    {% endif %}
+{% endif %}
+
+    <table class="table">
+        <thead>
+            <th scope="col">Choice text</th>
+            <th scope="col">Votes</th>
+        </thead>
+        <tbody>
+        {% for choice in question.choice_set.all %}
+        <tr>
+            <td>{{ choice.choice_text }}</td>
+            <td>{{ choice.votes }}</td>
+        </tr> 
+        {% endfor %}
+        </tbody>
+    </table>
+
+
 
 <a href="{% url 'chart' question.id %}"> Ver grafica</a><br />
 <a href="{% url 'index' %}">Contestar otra pregunta?</a>

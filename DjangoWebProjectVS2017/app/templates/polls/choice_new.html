@@ -5,10 +5,29 @@
 <h3>{{ message }}</h3>
 
 <h1>Insertar una opción</h1>
-        <form method="POST" class="post-form">{% csrf_token %}
+    {% if question.choice_set.count == 4 %}
+        <div class="alert alert-danger" role="alert">
+            Ya se han insertado cuatro opciones, no se pueden insertar más. 
+        </div>
+    {% else %}        
+        <form method="POST" name="" onsubmit="return checkCorrect()" class="post-form">{% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="save btn btn-default">Save</button>
         </form>
+    {% endif %}
 <a href="{% url 'index' %}">Ver preguntas</a> 
 
+
+{% block jquery %}
+<script>
+        console.log("AA");
+        function checkCorrect() {
+            var correctas = "{{question.choice_set}}";
+            alert("Respuestas correctas" + correctas);
+            return true;
+        };
+</script>
 {% endblock %}
+
+{% endblock %}
+
