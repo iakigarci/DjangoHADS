@@ -56,7 +56,7 @@ def about(request):
 def index(request):
     if request.method == "POST":
         form = request.POST
-        latest_question_list = Question.objects.filter(category=form.get("selectCategory", "")).order_by('-pub_date')
+        latest_question_list = Question.objects.filter(category=form.get("selectCategory", "")).order_by('-pub_date');
     else:
         latest_question_list = Question.objects.order_by('-pub_date')
     category_list = list(Question.objects.values('category').distinct())
