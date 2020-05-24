@@ -109,7 +109,7 @@ def question_new(request):
         return render(request, 'polls/question_new.html', {'form': form})
 
 def choice_add(request, question_id):
-        question = Question.objects.get(id = question_id)
+        question = Question.objects.get(pk = question_id)
         if request.method =='POST':
             form = ChoiceForm(request.POST)
             if form.is_valid():
@@ -121,7 +121,44 @@ def choice_add(request, question_id):
         else: 
             form = ChoiceForm()
         #return render_to_response ('choice_new.html', {'form': form, 'poll_id': poll_id,}, context_instance = RequestContext(request),)
-        return render(request, 'polls/choice_new.html', {'title':'Pregunta:'+ question.question_text,'form': form, })
+        return render(request, 'polls/choice_new.html', {'title':'Pregunta:'+ question.question_text,'form': form , 'question' : question})
+
+def chart(request, question_id):
+    q=Question.objects.get(id = question_id)
+    qs = Choice.objects.filter(question=q)
+    dates = [obj.choice_text for obj in qs]
+    counts = [obj.votes for obj in qs]
+    context = {
+        'title' : 'grafico de resultados',
+        'dates': json.dumps(dates),
+        'counts': json.dumps(counts),
+        'year':datetime.now().year
+    }
+
+    return render(request, 'polls/grafico.html', context,)
+
+def user_new(request):
+        if request.method == "POST":
+            form = UserForm(request.POST)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.save()
+                #return redirect('detail', pk=question_id)
+                #return render(request, 'polls/index.html', {'title':'Respuestas posibles','question': question})
+        else:
+            form = UserForm()
+        return render(request, 'polls/user_new.html', {'title' : 'Registro de usuario','form': form, 'year':datetime.now().year})
+
+def users_detail(request):
+    latest_user_list = User.objects.order_by('email')
+    template = loader.get_template('polls/users.html')
+    context = {
+                'title':'Lista de usuarios',
+                'latest_user_list': latest_user_list,
+                'year':datetime.now().year
+              }
+    return render(request, 'polls/users.html', context)
+
 
 def chart(request, question_id):
     q=Question.objects.get(id = question_id)
