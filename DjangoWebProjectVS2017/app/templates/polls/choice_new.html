@@ -18,16 +18,6 @@
 <a href="{% url 'index' %}">Ver preguntas</a> 
 
 
-{% block jquery %}
-<script>
-        console.log("AA");
-        function checkCorrect() {
-            var correctas = "{{question.choice_set}}";
-            alert("Respuestas correctas" + correctas);
-            return true;
-        };
-</script>
-{% endblock %}
 
 {% endblock %}
 

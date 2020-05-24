@@ -27,23 +27,24 @@
     </tbody>
 </table>
 {% else %}
-    <div name="formPregunta" class="input-group">
+    <div class="input-group"></div>
     {% for choice in question.choice_set.all %}
         <div class="input-group-text">
             <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
             <label for="choice{{ forloop.counter }}">   {{ choice.choice_text }}</label>
         </div>
     {% endfor %}
-    <br />
-    <button type="submit" class="btn btn-light mb-2">Vote</button>  
-    <br /><br />
-    <a href="{% url 'index' %}">Volver a las preguntas</a>
     </div>
 {% endif %}
 
 {% if request.user.is_authenticated %}
     <a href="{% url 'choice_add' question.id %}"><h3>Insertar Opciones</h3></a> 
     <a href="{% url 'chart' question.id %}"> <h3>Ver resultado de la votacion</h3> </a><br />    
+{% else %}
+    <br />
+    <button type="submit" class="btn btn-light mb-2">Vote</button>  
+    <br /><br />
+    <a href="{% url 'index' %}">Volver a las preguntas</a>
 {% endif %}
 
 </form>
