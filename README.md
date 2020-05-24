@@ -1,6 +1,6 @@
 # ProyectoHADS
 
-Proyecto de la asignatura de "Herramientas Avanzadas de Diseño Software", realizado por **Iñaki Garía**. Este proyecto es un deribado de un proyecto creado por el profesor. 
+Proyecto de la asignatura de "Herramientas Avanzadas de Desarrollo Software", realizado por **Iñaki Garía**. Este proyecto es un deribado de un proyecto creado por el profesor. 
 
 Proyecto creado en Django, con el uso de una base de datos SQLite y diferentes herramientas (AJAX, JSON...)
 
