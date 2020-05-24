@@ -63,8 +63,8 @@
                 contentType: false,
                 success: function (r) {
                     var doc = new DOMParser().parseFromString(r, "text/html");
-                    alert("asds"+doc.getElementById('contentDiv'));
-                    $('#contentDiv').html(doc.getElementById('contentDiv').innerHTML)
+                    alert(doc.getElementById('divMain'));
+                    $('#divMain').html(doc.getElementById('divMain').innerHTML)
                 }
             });
 
